@@ -16,13 +16,45 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  title = 'app';
+export const enum LogLevel{
+  DEBUG,
+  INFO,
+  WARN,
+  ERROR,
+  FATAL,
+}
+
+@Injectable()
+export class LogService {
+
+  constructor() {
+  }
+
+
+  static log(loglevel:LogLevel=LogLevel.INFO,msg: any) {
+    switch (loglevel){
+      case LogLevel.DEBUG:
+        console.log(msg);
+        break;
+      case LogLevel.INFO:
+        console.info(msg);
+        break;
+      case LogLevel.WARN:
+        console.warn(msg);
+        break;
+      case LogLevel.ERROR:
+        console.error(msg);
+        break;
+      case LogLevel.FATAL:
+        console.error(msg);
+        break;
+      default:
+        break;
+    }
+  }
+
+
+
 }

@@ -16,13 +16,18 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component } from '@angular/core';
+import { TestBed, inject } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  title = 'app';
-}
+import { BasicInfoService } from './basic-info.service';
+
+describe('BasicInfoServiceService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [BasicInfoService]
+    });
+  });
+
+  it('should be created', inject([BasicInfoService], (service: BasicInfoService) => {
+    expect(service).toBeTruthy();
+  }));
+});

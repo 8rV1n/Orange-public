@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Project Orange-public
  *
- * @Author: arvinsc
+ * @author: arvinsc
  * <p>
  * Date: 22-Apr-18
  * <p>
@@ -38,8 +38,7 @@ public class OrangeApiStarter {
 
 
     /**
-     *  TODO, Remove when production
-     * @return
+     * @return a WebMvcConfigurer instance
      */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -51,7 +50,7 @@ public class OrangeApiStarter {
         };
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(OrangeApiStarter.class);
     }
 

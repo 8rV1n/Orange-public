@@ -26,3 +26,6 @@ hs_err_pid*
 # ide files
 *.iml
 .idea/*
+
+# compile files
+**/target/**

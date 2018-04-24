@@ -16,13 +16,15 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NaviComponent } from './navi.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NaviComponent} from './navi.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgZorroAntdModule.forRoot()
   ],
   exports: [NaviComponent],
   declarations: [NaviComponent]

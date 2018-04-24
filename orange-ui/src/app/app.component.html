@@ -17,7 +17,16 @@
   -->
 
 <nz-layout>
-  <app-navi></app-navi>
-  <app-contents></app-contents>
-  <app-footer></app-footer>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" >
+    <app-sidebar></app-sidebar>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <app-navi></app-navi>
+    </nz-header>
+    <nz-content>
+      <app-contents></app-contents>
+    </nz-content>
+    <app-footer></app-footer>
+  </nz-layout>
 </nz-layout>

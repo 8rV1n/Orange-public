@@ -19,10 +19,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContentsComponent } from './contents.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgZorroAntdModule.forRoot()
   ],
   exports: [ContentsComponent],
   declarations: [ContentsComponent]

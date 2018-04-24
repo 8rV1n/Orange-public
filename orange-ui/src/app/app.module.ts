@@ -29,7 +29,7 @@ import {NaviModule} from './navi/navi.module';
 import {ContentsModule} from './contents/contents.module';
 import {FooterModule} from './footer/footer.module';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {ApiConfig} from './api-config';
+import {SidebarModule} from './sidebar/sidebar.module';
 
 
 @NgModule({
@@ -42,6 +42,7 @@ import {ApiConfig} from './api-config';
     HttpClientModule,
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot(),
+    SidebarModule,
     NaviModule,
     ContentsModule,
     FooterModule

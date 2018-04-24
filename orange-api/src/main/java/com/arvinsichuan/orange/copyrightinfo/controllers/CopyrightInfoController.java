@@ -35,7 +35,7 @@ import javax.annotation.Resource;
  * <p>
  * Package: com.arvinischuan.just4fun.nomorewait.basicinfo.controllers
  *
- * @author 75744
+ * @author ArvinSiChuan
  */
 @RestController
 @RequestMapping(value = "/copyright")
@@ -44,7 +44,7 @@ public class CopyrightInfoController {
     @Resource(name = "copyright-info-service", type = BasicInfoService.class)
     private BasicInfoService basicInfoService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public CopyrightInfo getBasicInfo() {
         return basicInfoService.getBasicInfo();
     }

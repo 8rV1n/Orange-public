@@ -16,14 +16,8 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Injectable} from '@angular/core';
-
 
 const WEB_API_BASE_URL = 'http://localhost:8081/';
-
-
-
-
 
 
 export class ApiConfig {

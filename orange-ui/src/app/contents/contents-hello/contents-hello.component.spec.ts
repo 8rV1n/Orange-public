@@ -16,22 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
-})
-export class SidebarComponent implements OnInit {
-  icon = faUser;
+import { ContentsHelloComponent } from './contents-hello.component';
 
-  isCollapsed = true;
+describe('ContentsHelloComponent', () => {
+  let component: ContentsHelloComponent;
+  let fixture: ComponentFixture<ContentsHelloComponent>;
 
-  constructor() {
-  }
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ContentsHelloComponent ]
+    })
+    .compileComponents();
+  }));
 
-  ngOnInit() {
-  }
-}
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ContentsHelloComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

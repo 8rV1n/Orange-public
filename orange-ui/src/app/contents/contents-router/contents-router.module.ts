@@ -16,22 +16,24 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule, Routes} from '@angular/router';
+import {ContentsHelloComponent} from '../contents-hello/contents-hello.component';
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+
+const contentsRoutes: Routes = [
+  {path: '', component: ContentsHelloComponent}
+];
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(contentsRoutes)
+  ],
+  exports: [RouterModule],
+  declarations: []
 })
-export class SidebarComponent implements OnInit {
-  icon = faUser;
-
-  isCollapsed = true;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+export class ContentsRouterModule {
 }

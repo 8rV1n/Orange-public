@@ -17,21 +17,21 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
-export class SidebarComponent implements OnInit {
-  icon = faUser;
+export class NavComponent implements OnInit {
 
-  isCollapsed = true;
+  // private _user = this.authService.user;
 
-  constructor() {
+  constructor(private authService: AuthenticationService) {
   }
 
   ngOnInit() {
   }
+
 }

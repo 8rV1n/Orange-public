@@ -17,8 +17,9 @@
  */
 
 import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
 
-export const enum LogLevel{
+export const enum LogLevel {
   DEBUG,
   INFO,
   WARN,
@@ -33,13 +34,24 @@ export class LogService {
   }
 
 
-  static log(loglevel:LogLevel=LogLevel.INFO,msg: any) {
-    switch (loglevel){
+  static log(loglevel: LogLevel = LogLevel.INFO, devMode: boolean = false, msg: any) {
+    if (devMode) {
+      if (!environment.production) {
+        this.realLog(loglevel, msg);
+      }
+    } else {
+      this.realLog(loglevel, msg);
+    }
+
+  }
+
+  static realLog(logLevel: LogLevel, msg: any) {
+    switch (logLevel) {
       case LogLevel.DEBUG:
         console.log(msg);
         break;
       case LogLevel.INFO:
-        console.info(msg);
+        console.log(msg);
         break;
       case LogLevel.WARN:
         console.warn(msg);
@@ -54,7 +66,6 @@ export class LogService {
         break;
     }
   }
-
 
 
 }

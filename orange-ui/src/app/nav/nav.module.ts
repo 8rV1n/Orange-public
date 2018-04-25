@@ -16,18 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavComponent} from './nav.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {AuthenticationModule} from '../authentication/authentication.module';
 
-@Component({
-  selector: 'app-navi',
-  templateUrl: './navi.component.html',
-  styleUrls: ['./navi.component.css']
+@NgModule({
+  imports: [
+    CommonModule,
+    NgZorroAntdModule.forRoot(),
+    AuthenticationModule.forRoot()
+  ],
+  exports: [NavComponent],
+  declarations: [NavComponent]
 })
-export class NaviComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class NavModule { }

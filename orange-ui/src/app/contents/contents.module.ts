@@ -20,13 +20,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContentsComponent } from './contents.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
+import { ContentsHelloComponent } from './contents-hello/contents-hello.component';
+import {ContentsRouterModule} from './contents-router/contents-router.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    NgZorroAntdModule.forRoot()
+    NgZorroAntdModule.forRoot(),
+    ContentsRouterModule
   ],
   exports: [ContentsComponent],
-  declarations: [ContentsComponent]
+  declarations: [ContentsComponent, ContentsHelloComponent]
 })
 export class ContentsModule { }

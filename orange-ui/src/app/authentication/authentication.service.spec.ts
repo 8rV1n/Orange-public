@@ -16,22 +16,18 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import { TestBed, inject } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
-})
-export class SidebarComponent implements OnInit {
-  icon = faUser;
+import { AuthenticationService } from './authentication.service';
 
-  isCollapsed = true;
+describe('AuthenticationService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [AuthenticationService]
+    });
+  });
 
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-}
+  it('should be created', inject([AuthenticationService], (service: AuthenticationService) => {
+    expect(service).toBeTruthy();
+  }));
+});

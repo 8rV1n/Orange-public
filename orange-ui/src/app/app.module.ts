@@ -25,11 +25,12 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
-import {NaviModule} from './navi/navi.module';
 import {ContentsModule} from './contents/contents.module';
 import {FooterModule} from './footer/footer.module';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {SidebarModule} from './sidebar/sidebar.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AuthenticationModule} from './authentication/authentication.module';
 
 
 @NgModule({
@@ -43,9 +44,10 @@ import {SidebarModule} from './sidebar/sidebar.module';
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot(),
     SidebarModule,
-    NaviModule,
     ContentsModule,
-    FooterModule
+    FooterModule,
+    FontAwesomeModule,
+    AuthenticationModule.forRoot()
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

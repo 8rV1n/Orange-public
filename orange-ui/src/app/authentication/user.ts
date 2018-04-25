@@ -16,22 +16,43 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+export class User {
+  private _username: string;
+  private _password: string;
+  private _enabled: boolean;
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
-})
-export class SidebarComponent implements OnInit {
-  icon = faUser;
+  private _authorities: string[];
 
-  isCollapsed = true;
 
-  constructor() {
+  get username(): string {
+    return this._username;
   }
 
-  ngOnInit() {
+  set username(value: string) {
+    this._username = value;
+  }
+
+  get password(): string {
+    return this._password;
+  }
+
+  set password(value: string) {
+    this._password = value;
+  }
+
+  get enabled(): boolean {
+    return this._enabled;
+  }
+
+  set enabled(value: boolean) {
+    this._enabled = value;
+  }
+
+  get authorities(): string[] {
+    return this._authorities;
+  }
+
+  set authorities(value: string[]) {
+    this._authorities = value;
   }
 }

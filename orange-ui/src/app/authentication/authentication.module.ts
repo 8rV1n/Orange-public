@@ -16,22 +16,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AuthenticationService} from './authentication.service';
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+@NgModule({
+  imports: [
+    CommonModule
+  ], providers: [AuthenticationService],
+  declarations: []
 })
-export class SidebarComponent implements OnInit {
-  icon = faUser;
-
-  isCollapsed = true;
-
-  constructor() {
+export class AuthenticationModule {
+  constructor(@Optional() @SkipSelf() parentModule: AuthenticationModule) {
+    if (parentModule) {
+      throw new Error(
+        'Authentication Module is already loaded. Import it in the AppModule only');
+    }
   }
 
-  ngOnInit() {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthenticationModule,
+      providers: [
+        AuthenticationService
+      ]
+    };
   }
 }

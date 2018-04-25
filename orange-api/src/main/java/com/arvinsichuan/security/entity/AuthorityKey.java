@@ -35,5 +35,5 @@ public class AuthorityKey implements Serializable {
     @SuppressWarnings("unused")
     private User userByUsername;
     @SuppressWarnings("unused")
-    private AuthoritiesEnum authority;
+    private AuthoritiesEnum ownedAuthority;
 }

@@ -23,7 +23,6 @@ import {LogLevel, LogService} from './log.service';
 import {ApiConfig} from '../api-config';
 
 
-
 @Injectable()
 export class WebApiService {
 
@@ -44,10 +43,10 @@ export class WebApiService {
   protected handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      LogService.log(LogLevel.ERROR, error); // log to console instead
+      LogService.log(LogLevel.ERROR, true, error); // log to console instead
 
 
-      LogService.log(LogLevel.ERROR, `${operation} failed: ${error.message}`);
+      LogService.log(LogLevel.ERROR, true, `${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

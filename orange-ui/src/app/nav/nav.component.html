@@ -15,18 +15,21 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<li nz-submenu>
-  <span title><span class="anticon anticon-user"></span><span class="nav-text">User</span></span>
-  <ul>
-    <li nz-menu-item>Tom</li>
-    <li nz-menu-item>Bill</li>
-    <li nz-menu-item>Alex</li>
-  </ul>
-</li>
-<li nz-submenu>
-  <span title><span class="anticon anticon-api"></span><span class="nav-text">Team</span></span>
-  <ul>
-    <li nz-menu-item>Team 1</li>
-    <li nz-menu-item>Team 2</li>
-  </ul>
-</li>
+
+<ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+  <li nz-submenu>
+    <span title><span class="anticon anticon-user"></span><span class="nav-text">User</span></span>
+    <ul>
+      <li nz-menu-item>Tom</li>
+      <li nz-menu-item>Bill</li>
+      <li nz-menu-item>Alex</li>
+    </ul>
+  </li>
+  <li nz-submenu>
+    <span title><span class="anticon anticon-api"></span><span class="nav-text">Team</span></span>
+    <ul>
+      <li nz-menu-item>Team 1</li>
+      <li nz-menu-item>Team 2</li>
+    </ul>
+  </li>
+</ul>

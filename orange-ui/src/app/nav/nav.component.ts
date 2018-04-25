@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
@@ -26,12 +26,16 @@ import {AuthenticationService} from '../authentication/authentication.service';
 })
 export class NavComponent implements OnInit {
 
+  @Input()
+  isCollapsed;
   // private _user = this.authService.user;
 
   constructor(private authService: AuthenticationService) {
   }
 
   ngOnInit() {
+    // Validate user when open a page
+    this.authService.doValidation(this.authService.user);
   }
 
 }

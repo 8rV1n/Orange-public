@@ -17,7 +17,6 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,7 +24,7 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  icon = faUser;
+
 
   isCollapsed = true;
 

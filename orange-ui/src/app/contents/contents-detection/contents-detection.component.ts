@@ -16,26 +16,31 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {ContentsHelloComponent} from '../contents-hello/contents-hello.component';
-import {ContentsDetectionComponent} from '../contents-detection/contents-detection.component';
+import {Component, OnInit} from '@angular/core';
+import {NzMessageService} from 'ng-zorro-antd';
 
-
-const contentsRoutes: Routes = [
-  {path: '', component: ContentsHelloComponent},
-  {path: 'detection', component: ContentsDetectionComponent}
-];
-
-
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(contentsRoutes)
-  ],
-  exports: [RouterModule],
-  declarations: []
+@Component({
+  selector: 'app-detect-plate',
+  templateUrl: './contents-detection.component.html',
+  styleUrls: ['./contents-detection.component.css']
 })
-export class ContentsRouterModule {
+export class ContentsDetectionComponent implements OnInit {
+  constructor(private msg: NzMessageService) {
+  }
+
+  ngOnInit() {
+  }
+
+
+  handleChange({file, fileList}) {
+    const status = file.status;
+    if (status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (status === 'done') {
+      this.msg.success(`${file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      this.msg.error(`${file.name} file upload failed.`);
+    }
+  }
 }

@@ -26,7 +26,8 @@ import {AuthenticationModule} from '../authentication/authentication.module';
   imports: [
     CommonModule,
     NgZorroAntdModule.forRoot(),
-    AuthenticationModule.forRoot()
+    AuthenticationModule.forRoot(),
+    NgZorroAntdModule.forRoot({extraFontName: 'anticon', extraFontUrl: './assets/fonts/iconfont'})
   ],
   exports: [NavComponent],
   declarations: [NavComponent]

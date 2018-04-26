@@ -17,9 +17,54 @@
   -->
 
 <nz-header>
-  <h1 class="header-title">End User System</h1>
+  <h1 class="header-title">{{helloMsgBrief}}</h1>
 </nz-header>
-<nz-content>
-  <p>Hello, Login to use the system</p>
+<nz-content style="padding-top: 6em;">
+  <div class="central-box">
+    <div class="hello-banner">
+      <h1 class="in-eye">{{helloMsgBrief}}</h1>
+      <h2>{{helloMsg}}</h2>
+    </div>
+    <form nz-form [formGroup]="validateForm" class="login-form form-central" (ngSubmit)="_submitForm()"
+          autocomplete="on">
+      <div nz-form-item>
+        <div nz-form-control>
+          <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+            <ng-template #prefix>
+              <i class="anticon anticon-user"></i>
+            </ng-template>
+          </nz-input>
+          <div nz-form-explain
+               *ngIf="userName.dirty&&userName.hasError('required')">Please
+            input your username!
+          </div>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-control>
+          <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'">
+            <ng-template #prefix>
+              <i class="anticon anticon-lock"></i>
+            </ng-template>
+          </nz-input>
+          <div nz-form-explain
+               *ngIf="password.dirty&&password.hasError('required')">Please
+            input your Password!
+          </div>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+          <a class="login-form-forgot">Forgot password</a>
+          <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
+          Or
+          <a href="">register now!</a>
+        </div>
+      </div>
+    </form>
+  </div>
 
 </nz-content>

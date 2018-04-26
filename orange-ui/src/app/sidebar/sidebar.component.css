@@ -16,7 +16,8 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.icon{
-  margin-left: 8px;
+.logo-icon {
+  margin: 0.6em 0.6em 0.6em 0.6em;
   line-height: 42px;
 }
+

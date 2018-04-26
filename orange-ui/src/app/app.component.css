@@ -16,6 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 /*Hide redundant contents in sidebar*/
 :host ::ng-deep .ant-layout-sider-collapsed .nav-text {
   display: none;
@@ -33,3 +34,9 @@
 .light-theme{
   background: white;
 }
+
+.full-screen {
+  height: 100%;
+}
+
+

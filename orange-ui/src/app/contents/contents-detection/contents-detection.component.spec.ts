@@ -16,26 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {ContentsHelloComponent} from '../contents-hello/contents-hello.component';
-import {ContentsDetectionComponent} from '../contents-detection/contents-detection.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
+import {ContentsDetectionComponent} from './contents-detection.component';
 
-const contentsRoutes: Routes = [
-  {path: '', component: ContentsHelloComponent},
-  {path: 'detection', component: ContentsDetectionComponent}
-];
+describe('ContentsDetectionComponent', () => {
+  let component: ContentsDetectionComponent;
+  let fixture: ComponentFixture<ContentsDetectionComponent>;
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ContentsDetectionComponent]
+    })
+      .compileComponents();
+  }));
 
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(contentsRoutes)
-  ],
-  exports: [RouterModule],
-  declarations: []
-})
-export class ContentsRouterModule {
-}
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ContentsDetectionComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

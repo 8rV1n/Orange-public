@@ -16,20 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ContentsComponent } from './contents.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ContentsComponent} from './contents.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
-import { ContentsHelloComponent } from './contents-hello/contents-hello.component';
+import {ContentsHelloComponent} from './contents-hello/contents-hello.component';
 import {ContentsRouterModule} from './contents-router/contents-router.module';
+import {ContentsDetectionComponent} from './contents-detection/contents-detection.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     NgZorroAntdModule.forRoot(),
-    ContentsRouterModule
+    ContentsRouterModule,
+    NgZorroAntdModule.forRoot({extraFontName: 'anticon', extraFontUrl: './assets/fonts/iconfont'})
   ],
   exports: [ContentsComponent],
-  declarations: [ContentsComponent, ContentsHelloComponent]
+  declarations: [ContentsComponent, ContentsHelloComponent, ContentsDetectionComponent]
 })
 export class ContentsModule { }

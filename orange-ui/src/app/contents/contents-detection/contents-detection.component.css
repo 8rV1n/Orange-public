@@ -16,26 +16,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {ContentsHelloComponent} from '../contents-hello/contents-hello.component';
-import {ContentsDetectionComponent} from '../contents-detection/contents-detection.component';
-
-
-const contentsRoutes: Routes = [
-  {path: '', component: ContentsHelloComponent},
-  {path: 'detection', component: ContentsDetectionComponent}
-];
-
-
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(contentsRoutes)
-  ],
-  exports: [RouterModule],
-  declarations: []
-})
-export class ContentsRouterModule {
+:host ::ng-deep nz-upload {
+  display: block;
 }
+
+:host ::ng-deep .ant-upload.ant-upload-drag {
+  height: 180px;
+}
+
+.upload-box {
+  width: 67%;
+  margin: 0 auto;
+}
+

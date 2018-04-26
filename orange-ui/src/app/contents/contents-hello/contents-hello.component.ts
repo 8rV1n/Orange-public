@@ -17,6 +17,7 @@
  */
 
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contents-hello',
@@ -24,12 +25,51 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./contents-hello.component.css']
 })
 export class ContentsHelloComponent implements OnInit {
-  private _title = 'Hello';
+  private _helloMsgBrief = 'Hello';
 
-  constructor() {
+  private _helloMsg = 'Be an user in the system and continue.';
+
+  validateForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this._createFrom();
   }
 
   ngOnInit() {
+
+  }
+
+  private _createFrom() {
+    this.validateForm = this.fb.group({
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      remember: [true],
+    });
+  }
+
+  _submitForm() {
+    if (this.validateForm.controls) {
+      for (const i of Object.keys(this.validateForm.controls)) {
+        this.validateForm.controls[i].markAsDirty();
+      }
+    }
+  }
+
+  get helloMsgBrief(): string {
+    return this._helloMsgBrief;
+  }
+
+  get helloMsg(): string {
+    return this._helloMsg;
+  }
+
+
+  get userName() {
+    return this.validateForm.get('userName');
+  }
+
+  get password() {
+    return this.validateForm.get('password');
   }
 
 }

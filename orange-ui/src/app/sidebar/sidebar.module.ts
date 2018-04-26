@@ -28,7 +28,8 @@ import {NavModule} from '../nav/nav.module';
     CommonModule,
     NgZorroAntdModule.forRoot(),
     FontAwesomeModule,
-    NavModule
+    NavModule,
+    NgZorroAntdModule.forRoot({extraFontName: 'anticon', extraFontUrl: './assets/fonts/iconfont'})
   ],
   exports: [SidebarComponent],
   declarations: [SidebarComponent]

@@ -16,6 +16,35 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.header-title {
-  color: white;
+.central-box {
+  width: 67%;
+  margin: 0 auto;
 }
+
+.in-eye {
+  font-size: 500%;
+}
+
+.hello-banner {
+  width: 50%;
+  text-align: center;
+  margin: 0 auto 3em;
+}
+
+.form-central {
+  margin: 0 auto;
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+

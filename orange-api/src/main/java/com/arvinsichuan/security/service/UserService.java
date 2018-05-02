@@ -59,7 +59,7 @@ public class UserService {
     @Resource(name = "passEncoder")
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Transactional(rollbackFor = DuplicatedDataException.class)
+    @Transactional(rollbackFor = {DuplicatedDataException.class})
     public WebInfoEntity<User> userSignUp(String username, String password) throws DuplicatedDataException {
         WebInfoEntity<User> webInfo = new WebInfoEntityImpl<>();
         Optional<User> userOptional = userRepository.findById(username);

@@ -22,13 +22,13 @@ package com.arvinsichuan.security.controller;
 import com.arvinsichuan.exceptions.DuplicatedDataException;
 import com.arvinsichuan.generalapi.WebInfoEntity;
 import com.arvinsichuan.generalapi.defaultimpl.WebInfoEntityImpl;
+import com.arvinsichuan.security.entity.User;
 import com.arvinsichuan.security.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
 
 /**
@@ -43,19 +43,19 @@ import java.io.Serializable;
  */
 @RestController
 @RequestMapping(path = "/users")
+@Slf4j
 public class UserController {
 
     @Resource(name = "userService")
     private
     UserService userService;
 
-    @RequestMapping(path = "/signUp", method = RequestMethod.POST)
-    public Serializable signUp(@RequestParam(value = "username") String name, @RequestParam(value =
-            "password") String password) {
+    @PostMapping(path = "/signUp")
+    public Serializable signUp(@RequestBody User user) {
         WebInfoEntity webInfoEntity=new WebInfoEntityImpl<>();
         try {
-            webInfoEntity= userService.userSignUp(name,password);
-        } catch (DuplicatedDataException e) {
+            webInfoEntity = userService.userSignUp(user.getUsername(), user.getPassword());
+        } catch (DuplicatedDataException | ConstraintViolationException e) {
             webInfoEntity.haveException(e);
         }
         return webInfoEntity;

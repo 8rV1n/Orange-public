@@ -17,7 +17,7 @@
  */
 
 
-const WEB_API_BASE_URL = 'http://localhost:8081/';
+const WEB_API_BASE_URL = '/';
 
 
 export class ApiConfig {

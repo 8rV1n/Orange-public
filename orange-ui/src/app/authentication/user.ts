@@ -17,42 +17,9 @@
  */
 
 export class User {
-  private _username: string;
-  private _password: string;
-  private _enabled: boolean;
-
-  private _authorities: string[];
-
-
-  get username(): string {
-    return this._username;
-  }
-
-  set username(value: string) {
-    this._username = value;
-  }
-
-  get password(): string {
-    return this._password;
-  }
-
-  set password(value: string) {
-    this._password = value;
-  }
-
-  get enabled(): boolean {
-    return this._enabled;
-  }
-
-  set enabled(value: boolean) {
-    this._enabled = value;
-  }
-
-  get authorities(): string[] {
-    return this._authorities;
-  }
-
-  set authorities(value: string[]) {
-    this._authorities = value;
+  constructor(public username: string,
+              public password: string,
+              public enabled: boolean,
+              public authorities: string[] = []) {
   }
 }

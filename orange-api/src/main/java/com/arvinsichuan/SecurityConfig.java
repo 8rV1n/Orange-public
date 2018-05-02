@@ -19,8 +19,8 @@
 package com.arvinsichuan;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -29,7 +29,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
@@ -51,35 +50,43 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final DataSource dataSource;
 
     private String[] publicPath = {"/", "/css/**", "/js/**", "/fonts/**", "/img/**", "/favicon.ico", "/auth/**"};
 
 
-
+    @Autowired
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
-    @Order(1)
+    @Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
     protected void configure(HttpSecurity http) throws Exception {
+        String statusUrl = "/auth/status";
         http
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .authorizeRequests()
                 .antMatchers(publicPath)
                 .permitAll()
-            .and()
+                .anyRequest().permitAll()
+                .and()
                 .formLogin()
                 .loginPage("/auth/login")
-                .successForwardUrl("/auth/status")
-                .failureForwardUrl("/auth/status")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successForwardUrl(statusUrl)
+                .failureForwardUrl(statusUrl)
                 .permitAll()
-            .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            .and()
+                .and()
                 .logout()
                 .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl(statusUrl)
                 .invalidateHttpSession(true)
                 .deleteCookies()
-            .and()
+                .and()
                 .sessionManagement()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false)
@@ -92,17 +99,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(16);
     }
 
-    @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
-        jdbcUserDetailsManager.setDataSource(dataSource);
-        return jdbcUserDetailsManager;
-    }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .jdbcAuthentication()
+                .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
         ;// END AUTH CONFIG
     }

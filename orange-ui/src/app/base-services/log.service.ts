@@ -34,6 +34,10 @@ export class LogService {
   }
 
 
+  static logDev(loglevel: LogLevel = LogLevel.INFO, msg: any) {
+    this.log(loglevel, true, msg);
+  }
+
   static log(loglevel: LogLevel = LogLevel.INFO, devMode: boolean = false, msg: any) {
     if (devMode) {
       if (!environment.production) {
@@ -42,7 +46,6 @@ export class LogService {
     } else {
       this.realLog(loglevel, msg);
     }
-
   }
 
   static realLog(logLevel: LogLevel, msg: any) {

@@ -16,33 +16,35 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.arvinsichuan.security.entity;
-
-/**
- * Project theWhiteSail
- * <p>
- * Author: arvinsc@foxmail.com
- * <p>
- * Date: 2017/10/1
- * <p>
- * Package: com.arvinsichuan.users.entity
- * @author Arvin
- */
-public enum AuthoritiesEnum {
-    /**
-     * Anonymous user
-     */
-    ROLE_ANONYMOUS,
-    /**
-     * Normal user
-     */
-    ROLE_USER,
-    /**
-     * Administrator Role
-     */
-    ROLE_ADMIN,
-    /**
-     * Developer Role that can invoke the api directly with a group of api token
-     */
-    ROLE_DEVELOPER
+.central-box {
+  width: 67%;
+  margin: 0 auto;
 }
+
+.in-eye {
+  font-size: 500%;
+}
+
+.hello-banner {
+  width: 50%;
+  text-align: center;
+  margin: 0 auto 3em;
+}
+
+.form-central {
+  margin: 0 auto;
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+

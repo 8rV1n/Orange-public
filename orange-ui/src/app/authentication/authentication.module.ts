@@ -19,10 +19,12 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AuthenticationService} from './authentication.service';
+import {HttpClientXsrfModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientXsrfModule
   ], providers: [AuthenticationService],
   declarations: []
 })

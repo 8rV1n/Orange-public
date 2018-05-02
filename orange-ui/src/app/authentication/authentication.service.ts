@@ -18,18 +18,20 @@
 
 import {Injectable} from '@angular/core';
 import {WebApiService} from '../base-services/web-api.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from './user';
 import {Observable} from 'rxjs/Observable';
 import {WebSwitchApi} from '../web-switch-api/web-switch-api';
 import {LogLevel, LogService} from '../base-services/log.service';
+import {catchError} from 'rxjs/operators';
+import {BasicInfoService} from '../footer/services/basic-info.service';
 
 
-const ENDPOINT = '/auth/';
+const ENDPOINT = 'auth/';
 const ENDPOINT_LOGIN = ENDPOINT + 'login';
 const ENDPOINT_STATUS = ENDPOINT + 'status';
 const ENDPOINT_LOGOUT = ENDPOINT + 'logout';
-const ENDPOINT_SIGN_UP = ENDPOINT + 'signUp';
+const ENDPOINT_REGISTER = 'users/signUp';
 
 @Injectable()
 export class AuthenticationService extends WebApiService {
@@ -41,37 +43,37 @@ export class AuthenticationService extends WebApiService {
     super();
   }
 
-  private login(user: User): Observable<WebSwitchApi> {
-    // let url = AuthenticationService.API_URL + "data/platforms.json";
-    LogService.log(LogLevel.INFO, true, 'Fetching...');
-    LogService.log(LogLevel.INFO, true, ENDPOINT_LOGIN);
-    // let observable: Observable<> = this.http.get<PlatformStatus[]>(url).pipe(
-    //   catchError(this.handleError<PlatformStatus[]>('getHeroes'))
-    // );
-    LogService.log(LogLevel.INFO, true, 'Fetching End');
-    // return observable;
+  public register(user: User): Observable<WebSwitchApi<User>> {
+    const url = BasicInfoService.API_URL + ENDPOINT_REGISTER;
+    LogService.logDev(LogLevel.INFO, 'Submitting...');
+    LogService.logDev(LogLevel.INFO, url);
+    const observable: Observable<WebSwitchApi<User>> =
+      this.http.post<WebSwitchApi<User>>(url, user)
+        .pipe(catchError(this.handleError<WebSwitchApi<User>>('register')));
+    LogService.logDev(LogLevel.INFO, 'Submitting End');
+    return observable;
+  }
+
+  public login(user: User): Observable<WebSwitchApi<{}>> {
+    const url = AuthenticationService.API_URL + ENDPOINT_LOGIN;
+    const params = new HttpParams()
+      .set('username', user.username)
+      .set('password', user.password);
+    LogService.logDev(LogLevel.INFO, 'Login...');
+    LogService.logDev(LogLevel.INFO, ENDPOINT_LOGIN);
+    const observable: Observable<WebSwitchApi<{}>> = this.http.post<WebSwitchApi<{}>>(url, params).pipe(
+      catchError(this.handleError<WebSwitchApi<{}>>('login'))
+    );
+    LogService.logDev(LogLevel.INFO, 'Login End');
+    return observable;
+  }
+
+  public logout(user: User): Observable<WebSwitchApi<User>> {
     return null;
   }
 
-  private logout(user: User): Observable<WebSwitchApi> {
+  public validateAuthStatus(user: User): Observable<WebSwitchApi<User>> {
     return null;
-  }
-
-  private validateAuthStatus(user: User): Observable<WebSwitchApi> {
-    return null;
-  }
-
-  public doLogin(user: User): boolean {
-    return false;
-  }
-
-
-  public doValidation(user: User): boolean {
-    return false;
-  }
-
-  public doLogout(user: User): boolean {
-    return false;
   }
 
 

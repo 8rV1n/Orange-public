@@ -16,6 +16,75 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class WebSwitchApi {
-  private
+export class WebSwitchApi<T> {
+  private _code: string;
+  private _message: string;
+  private _info: string;
+  private _data: T;
+  private _status: Status;
+
+
+  get status(): Status {
+    return this._status;
+  }
+
+  set status(value: Status) {
+    this._status = value;
+  }
+
+  get code(): string {
+    return this._code;
+  }
+
+  set code(value: string) {
+    this._code = value;
+  }
+
+  get message(): string {
+    return this._message;
+  }
+
+  set message(value: string) {
+    this._message = value;
+  }
+
+  get info(): string {
+    return this._info;
+  }
+
+  set info(value: string) {
+    this._info = value;
+  }
+
+  get data(): T {
+    return this._data;
+  }
+
+  set data(value: T) {
+    this._data = value;
+  }
+
+
+}
+
+export enum Status {
+  /**
+   * OK - Status OK
+   * Status code starts with 0 (0[0-9]*)
+   */
+  OK,
+  /*
+   *  EXCEPTION - Has Exception or have Exceptions
+   *  Error code starts with prefix 1 (1[0-9]*)
+   */
+  EXCEPTION,
+  /**
+   * non of data found Error code 101
+   */
+  EMPTY_DATA,
+  /*
+   *   Duplicated data found which can not be.
+   *   Error code 102
+   */
+  DUPLICATE_DATA
 }

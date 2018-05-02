@@ -18,22 +18,32 @@
 
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../authentication/user';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
-import {LogLevel, LogService} from '../../base-services/log.service';
 
 @Component({
-  selector: 'app-contents-hello',
-  templateUrl: './contents-hello.component.html',
-  styleUrls: ['./contents-hello.component.css']
+  selector: 'app-contents-register',
+  templateUrl: './contents-register.component.html',
+  styleUrls: ['./contents-register.component.css']
 })
-export class ContentsHelloComponent implements OnInit {
-  private _helloMsgBrief = 'Hello';
+export class ContentsRegisterComponent implements OnInit {
+  get registerData() {
+    return this._registerData;
+  }
 
-  private _helloMsg = 'Be an user in the system and continue.';
+  set registerData(value) {
+    this._registerData = value;
+  }
 
-  logInForm: FormGroup;
+  private _helloMsgBrief = 'Register';
+
+  private _helloMsg = 'Complete the form and continue.';
+
+  private _registerData;
+
+  registerForm: FormGroup;
 
   constructor(private fb: FormBuilder,
               private authService: AuthenticationService,
@@ -47,35 +57,37 @@ export class ContentsHelloComponent implements OnInit {
   }
 
   private _createFrom() {
-    this.logInForm = this.fb.group({
-      username: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true],
+    this.registerForm = this.fb.group({
+      username: [null, [Validators.required, Validators.maxLength(16)]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      passwordAgain: [null, [Validators.required]],
     });
   }
 
   _submitForm() {
-    if (this.logInForm.controls) {
-      for (const i of Object.keys(this.logInForm.controls)) {
-        this.logInForm.controls[i].markAsDirty();
+    if (this.registerForm.controls) {
+      for (const i of Object.keys(this.registerForm.controls)) {
+        this.registerForm.controls[i].markAsDirty();
       }
-      const msgId = this.msgService.loading('Please wait a moment.', {nzDuration: 0}).messageId;
-      this.authService.login(this.prepareUser()).subscribe(switchApi => {
+      const msgId = this.msgService.loading('Submitting', {nzDuration: 0}).messageId;
+      this.authService.register(this._prepareUser()).subscribe(switchApi => {
+        this._registerData = switchApi;
         this.msgService.remove(msgId);
-        LogService.logDev(LogLevel.INFO, switchApi);
-        if (switchApi) {
-          if (Number(switchApi.code) === 0) {
-            this.msgService.success('Login Success, please login.', {nzDuration: 3000});
-            this.router.navigate(['detection']);
+        if (this.registerData) {
+          if (this.registerData.code === 1) {
+            this.msgService.error('Username has been used, please choose another one or just go login', {nzDuration: 8000});
+          } else if (this.registerData.code === 0) {
+            this.msgService.success('Registering Success, please login.', {nzDuration: 3000});
+            this.router.navigate(['']);
           }
         }
       });
-
     }
   }
 
-  private prepareUser() {
-    const formModel = this.logInForm.value;
+
+  private _prepareUser(): User {
+    const formModel = this.registerForm.value;
     return {
       username: formModel.username as string,
       password: formModel.password as string,
@@ -83,6 +95,7 @@ export class ContentsHelloComponent implements OnInit {
       authorities: []
     };
   }
+
 
   get helloMsgBrief(): string {
     return this._helloMsgBrief;
@@ -94,11 +107,16 @@ export class ContentsHelloComponent implements OnInit {
 
 
   get userName() {
-    return this.logInForm.get('username');
+    return this.registerForm.get('username');
   }
 
   get password() {
-    return this.logInForm.get('password');
+    return this.registerForm.get('password');
   }
+
+  get passwordAgain() {
+    return this.registerForm.get('passwordAgain');
+  }
+
 
 }

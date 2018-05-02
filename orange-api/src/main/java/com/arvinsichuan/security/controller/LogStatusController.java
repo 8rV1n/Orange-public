@@ -22,6 +22,7 @@ package com.arvinsichuan.security.controller;
 import com.arvinsichuan.generalapi.WebInfoEntity;
 import com.arvinsichuan.generalapi.defaultimpl.WebInfoEntityImpl;
 import com.arvinsichuan.security.utils.SecurityInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +40,12 @@ import java.util.Map;
  * Date: 2017/10/1
  * <p>
  * Package: com.arvinsichuan.auth
+ *
  * @author ArvinSiChuan
  */
 @RestController
 @RequestMapping(path = "/auth")
+@Slf4j
 public class LogStatusController {
 
     @PostMapping(path = "/status")
@@ -51,18 +54,19 @@ public class LogStatusController {
     }
 
     @GetMapping(path = "/login")
-    public Serializable loginPageInfo(){
-        WebInfoEntity<Map<String,String>> info = assembleAuthInfo();
-        Map<String, String> infoMsg=info.getData();
-        infoMsg.put("loginEndpoint","/auth/login");
+    public WebInfoEntity<Map<String, String>> loginPageInfo() {
+        WebInfoEntity<Map<String, String>> info = assembleAuthInfo();
+        Map<String, String> infoMsg = info.getData();
+        infoMsg.put("loginEndpoint", "/auth/login");
         return info;
     }
 
-    private WebInfoEntity<Map<String,String>> assembleAuthInfo(){
-        WebInfoEntity<Map<String,String>> info = new WebInfoEntityImpl<>();
+
+    private WebInfoEntity<Map<String, String>> assembleAuthInfo() {
+        WebInfoEntity<Map<String, String>> info = new WebInfoEntityImpl<>();
         info.isOK();
         Map<String, String> infoMsg = new HashMap<>(2);
-        infoMsg.put(SecurityInfo.getTopAuth().name(),String.valueOf(SecurityInfo.getTopAuth().ordinal()));
+        infoMsg.put(SecurityInfo.getTopAuth().name(), String.valueOf(SecurityInfo.getTopAuth().ordinal()));
         info.addData(infoMsg);
         return info;
     }

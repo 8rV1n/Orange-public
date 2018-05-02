@@ -16,33 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.arvinsichuan.security.entity;
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-/**
- * Project theWhiteSail
- * <p>
- * Author: arvinsc@foxmail.com
- * <p>
- * Date: 2017/10/1
- * <p>
- * Package: com.arvinsichuan.users.entity
- * @author Arvin
- */
-public enum AuthoritiesEnum {
-    /**
-     * Anonymous user
-     */
-    ROLE_ANONYMOUS,
-    /**
-     * Normal user
-     */
-    ROLE_USER,
-    /**
-     * Administrator Role
-     */
-    ROLE_ADMIN,
-    /**
-     * Developer Role that can invoke the api directly with a group of api token
-     */
-    ROLE_DEVELOPER
-}
+import {ContentsRegisterComponent} from './contents-register.component';
+
+describe('ContentsRegisterComponent', () => {
+  let component: ContentsRegisterComponent;
+  let fixture: ComponentFixture<ContentsRegisterComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ContentsRegisterComponent]
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ContentsRegisterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

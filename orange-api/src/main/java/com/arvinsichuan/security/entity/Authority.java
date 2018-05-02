@@ -40,7 +40,7 @@ public class Authority implements Serializable {
     private static final long serialVersionUID = -8051333978047192441L;
 
     @Id
-    @Column(name = "ownedAuthority", length = 16, nullable = false)
+    @Column(name = "authority", length = 16, nullable = false)
     @Enumerated(EnumType.STRING)
     private AuthoritiesEnum ownedAuthority;
 

@@ -25,7 +25,8 @@
       <h1 class="in-eye">{{helloMsgBrief}}</h1>
       <h2>{{helloMsg}}</h2>
     </div>
-    <form nz-form [formGroup]="logInForm" class="login-form form-central" (ngSubmit)="_submitForm()"
+    <form nz-form [formGroup]="registerForm" class="login-form form-central"
+          (ngSubmit)="_submitForm()"
           autocomplete="on">
       <div nz-form-item>
         <div nz-form-control>
@@ -34,9 +35,9 @@
               <span class="anticon anticon-user"></span>
             </ng-template>
           </nz-input>
-          <div nz-form-explain
-               *ngIf="userName.dirty&&userName.hasError('required')">Please
+          <div nz-form-explain *ngIf="userName.dirty&&userName.hasError('required')">Please
             input your username!
+
           </div>
         </div>
       </div>
@@ -47,23 +48,37 @@
               <span class="anticon anticon-lock"></span>
             </ng-template>
           </nz-input>
-          <div nz-form-explain
-               *ngIf="password.dirty&&password.hasError('required')">Please
-            input your Password!
+          <div nz-form-explain>
+            <div *ngIf="password.dirty&&password.hasError('required')">Please
+              input your Password!
+            </div>
+            <div *ngIf="password.dirty&&password.hasError('minlength')">Password should be longer than 8 characters
+            </div>
           </div>
         </div>
       </div>
       <div nz-form-item>
         <div nz-form-control>
-          <label nz-checkbox formControlName="remember">
-            <span>Remember me</span>
-          </label>
-          <a class="login-form-forgot">Forgot password</a>
-          <button nz-button class="login-form-button" [disabled]="logInForm?.invalid" [nzType]="'primary'"
-                  [nzSize]="'large'">Log in
+          <nz-input formControlName="passwordAgain" [nzType]="'password'" [nzPlaceHolder]="'Password Again'"
+                    [nzSize]="'large'">
+            <ng-template #prefix>
+              <span class="anticon anticon-lock"></span>
+            </ng-template>
+          </nz-input>
+          <div nz-form-explain
+               *ngIf="passwordAgain.dirty&&passwordAgain.hasError('required')">
+            Your Password is different with the first one.
+          </div>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-control>
+          <button nz-button class="login-form-button" [disabled]="registerForm.invalid" [nzType]="'primary'"
+                  [nzSize]="'large'">Continue
           </button>
+          <br/>
           Or
-          <a routerLink="register">register now!</a>
+          <a routerLink="">Login</a>
         </div>
       </div>
     </form>

@@ -21,11 +21,13 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {ContentsHelloComponent} from '../contents-hello/contents-hello.component';
 import {ContentsDetectionComponent} from '../contents-detection/contents-detection.component';
+import {ContentsRegisterComponent} from '../contents-register/contents-register.component';
 
 
 const contentsRoutes: Routes = [
   {path: '', component: ContentsHelloComponent},
-  {path: 'detection', component: ContentsDetectionComponent}
+  {path: 'detection', component: ContentsDetectionComponent},
+  {path: 'register', component: ContentsRegisterComponent}
 ];
 
 

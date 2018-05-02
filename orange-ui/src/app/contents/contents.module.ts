@@ -26,6 +26,7 @@ import {ContentsDetectionComponent} from './contents-detection/contents-detectio
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ContentsRegisterComponent} from './contents-register/contents-register.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NgZorroAntdModule.forRoot({extraFontName: 'anticon', extraFontUrl: './assets/fonts/iconfont'})
   ],
   exports: [ContentsComponent],
-  declarations: [ContentsComponent, ContentsHelloComponent, ContentsDetectionComponent]
+  declarations: [ContentsComponent, ContentsHelloComponent, ContentsDetectionComponent, ContentsRegisterComponent]
 })
 export class ContentsModule { }

@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,10 +37,11 @@ import java.util.List;
  * Date: 2017/10/1
  * <p>
  * Package: com.arvinsichuan.users.entity
+ *
  * @author ArvinSiChuan
  */
 @Entity
-@Table( name = "users")
+@Table(name = "users")
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -49,9 +51,11 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "username", length = 16, nullable = false)
+    @Length(min = 1, max = 16, message = "Username length should be more than 0 and less than 16")
     private String username;
 
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(name = "password", length = 128, nullable = false)
+    @Length(min = 8, message = "Password length should be equal or more than 8.")
     private String password;
 
     @Column(name = "enabled", nullable = false)
@@ -60,7 +64,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userByUsername", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Authority> authorities;
-
 
 
     public User() {

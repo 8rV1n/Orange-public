@@ -20,6 +20,7 @@ package com.arvinsichuan.security.utils;
 
 
 import com.arvinsichuan.security.entity.AuthoritiesEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
  *
  * @author ArvinSiChuan
  */
+@Slf4j
 public class SecurityInfo {
 
     private SecurityInfo() {
@@ -69,7 +71,7 @@ public class SecurityInfo {
     /**
      * Retrieve Username.
      *
-     * @return
+     * @return username
      */
     public static String getUsername() {
         Principal principal = getPrincipal();
@@ -84,9 +86,9 @@ public class SecurityInfo {
     }
 
     /**
-     * Retrieve the toppest authentication
+     * Retrieve the top authentication
      *
-     * @return
+     * @return top authority
      */
     public static AuthoritiesEnum getTopAuth() {
         Iterator iterator = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator();

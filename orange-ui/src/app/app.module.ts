@@ -17,12 +17,12 @@
  */
 
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpClientXsrfModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ContentsModule} from './contents/contents.module';
@@ -41,16 +41,28 @@ import {AuthenticationModule} from './authentication/authentication.module';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientXsrfModule,
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot(),
     SidebarModule,
     ContentsModule,
     FooterModule,
     FontAwesomeModule,
-    AuthenticationModule.forRoot()
+    AuthenticationModule.forRoot(),
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
 }

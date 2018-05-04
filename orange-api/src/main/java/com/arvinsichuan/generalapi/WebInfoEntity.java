@@ -77,12 +77,12 @@ public interface WebInfoEntity<T> extends Map<String, Object>, Serializable {
          */
         EXCEPTION,
         /**
-         * non of data found Error code 101
+         * non of data found Error code 2
          */
         EMPTY_DATA,
         /*
          *   Duplicated data found which can not be.
-         *   Error code 102
+         *   Error code 3
          */
         DUPLICATE_DATA
     }

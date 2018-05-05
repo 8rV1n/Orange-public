@@ -17,23 +17,21 @@ app.config['UPLOADED_PHOTO_ALLOW'] = IMAGES
 photos = UploadSet('PHOTO')
 configure_uploads(app, photos)
 
-app.config["MODEL_MANAGER"] = KerasManager()
-app.config["MODEL_STARTED"] = False
+manager = KerasManager()
+manager.start()
+predictor = manager.Predictor()
+predictor.initialize()
 
 
 @app.route('/detection', methods=['POST'])
 def detection():
     time_start = time.time()
-    if not app.config["MODEL_STARTED"]:
-        app.config["MODEL_MANAGER"].start()
-        app.config["MODEL_STARTED"] = app.config["MODEL_MANAGER"].Prediction()
-        app.config["MODEL_STARTED"].initialize()
     web_entity = WebSwitchAPI("OK")
     if request.method == 'POST' and 'image' in request.files:
         file = request.files['image']
         img = image.load_img(file)
         img = image.img_to_array(img)
-        results = app.config["MODEL_STARTED"].detect_one(img)
+        results = predictor.detect_one(img)
         if not results:
             web_entity.have_exception("NO PLATE DETECTED")
         else:

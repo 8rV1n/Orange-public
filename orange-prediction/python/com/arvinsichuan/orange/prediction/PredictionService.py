@@ -2,6 +2,7 @@
 
 
 import os
+import time
 from multiprocessing import Lock
 from multiprocessing.managers import BaseManager
 
@@ -14,7 +15,7 @@ from python.com.arvinsichuan.orange.preprocess.DataPreprocessLite import DataPre
 from python.opencv.plate_localization import detect_plate_rough
 
 
-class Prediction(object):
+class Predictor(object):
     def __init__(self, json_model=None, weights=None, t=7):
         print("==========Init Multiprocess Locks=======")
         self.__mutex__ = Lock()
@@ -38,15 +39,19 @@ class Prediction(object):
         print("==========Loading Model END===========")
 
     def detect_one(self, img):
+        start_time = time.time()
         temp = detect_plate_rough(img.astype(np.uint8))
+        print("TIME STATICS: LOCALIZATION --- {} s".format(time.time() - start_time))
         if len(temp) == 0:
             return None
         results = []
+        start_time = time.time()
         for t in temp:
             img_to_pred = image.array_to_img(t[0])
             img_to_pred = self.__processor__.reshape_image(img_to_pred, target_size=(200, 500, 3))
             img_to_pred = image.img_to_array(img_to_pred) / 255
             results.append(self.detect_characters(img_to_pred))
+        print("TIME STATICS: CHAR DETECTION --- {} s".format(time.time() - start_time))
         return results
 
     def detect_characters(self, img_to_pred):
@@ -60,16 +65,4 @@ class KerasManager(BaseManager):
     pass
 
 
-KerasManager.register('Prediction', Prediction)
-
-if __name__ == '__main__':
-    with KerasManager() as manager:
-        print('Main', os.getpid())
-        kerasmodel = manager.Prediction()
-        kerasmodel.initialize()
-        img = image.load_img("C://Users/75744/git/Orange/dataset/云AU7526/云AU7526.jpg")
-        img = image.img_to_array(img)
-        print(kerasmodel.detect_one(img))
-        img = image.load_img("C://Users/75744/git/Orange/dataset/云AU7526/云AU7526.jpg")
-        img = image.img_to_array(img)
-        print(kerasmodel.detect_one(img))
+KerasManager.register('Predictor', Predictor)

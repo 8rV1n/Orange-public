@@ -16,6 +16,8 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
+<!--This file comes from https://github.com/zeusees/HyperLPR/blob/master/model/cascade.xml-->
+<!--We keep the right to explain for this.-->
 
 <opencv_storage>
     <cascade>

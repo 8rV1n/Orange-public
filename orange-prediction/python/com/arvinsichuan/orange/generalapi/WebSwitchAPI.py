@@ -27,7 +27,7 @@ class WebSwitchAPI(object):
         self.__WEB_ENTITY__["status"] = get_status_value("EXCEPTION")
         self.__WEB_ENTITY__["code"] = STATUS_AND_CODE["EXCEPTION"]
         if message:
-            self.__WEB_ENTITY__["message"] = str(e) + "Additional Message:{}".format(message)
+            self.__WEB_ENTITY__["message"] = str(e) + ", Additional Message:{}".format(message)
         else:
             self.__WEB_ENTITY__["message"] = e
         return self

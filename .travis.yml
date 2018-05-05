@@ -6,6 +6,8 @@ after_success:
   -  mvn sonar:sonar -Dsonar.organization=arvinsichuan-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_API}
   - cd .. && wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip && unzip sonar-scanner-cli-3.0.3.778-linux.zip
   - sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.projectKey=orange-ui -Dsonar.organization=arvinsichuan-github -Dsonar.sources=./orange-ui/ -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_UI}
+  - sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.projectKey=orange-prediction -Dsonar.organization=arvinsichuan-github -Dsonar.sources=./orange-prediction/ -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_PREDICTION}
+
 notifications:
   email:
     - Arvinsc@foxmail.com

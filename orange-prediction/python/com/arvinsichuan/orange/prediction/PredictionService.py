@@ -10,18 +10,18 @@ from keras.models import model_from_json
 from keras.preprocessing import image
 from matplotlib import pyplot
 
-from python.com.arvinsichuan.orange.preprocess.DataPreprocessInSequenceLocalized import DataPreprocess as DPP
+from python.com.arvinsichuan.orange.preprocess.DataPreprocessLite import DataPreProcess as DPP
 from python.opencv.plate_localization import detectPlateRough
 
 
 class Prediction(object):
-    def __init__(self, json_model=None, weights=None, T=7):
+    def __init__(self, json_model=None, weights=None, t=7):
         print("==========Init Multiprocess Locks=======")
         self.__mutex__ = Lock()
         self.__model__ = None
         self.__json_model__ = None
         self.__weights__ = None
-        self.__processor__ = DPP(T)
+        self.__processor__ = DPP(t)
 
     def initialize(self):
         print("==========Loading Model===========")

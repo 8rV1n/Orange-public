@@ -3,7 +3,7 @@ import cv2
 watch_cascade = cv2.CascadeClassifier('C:/Users/75744/git/Orange-public/orange-prediction/python/opencv/cascade.xml')
 
 
-def computeSafeRegion(shape, bounding_rect):
+def compute_safe_region(shape, bounding_rect):
     top = bounding_rect[1]  # y
     bottom = bounding_rect[1] + bounding_rect[3]  # y +  h
     left = bounding_rect[0]  # x
@@ -28,11 +28,11 @@ def computeSafeRegion(shape, bounding_rect):
 
 
 def cropped_from_image(image, rect):
-    x, y, w, h = computeSafeRegion(image.shape, rect)
+    x, y, w, h = compute_safe_region(image.shape, rect)
     return image[y:y + h, x:x + w]
 
 
-def detectPlateRough(image_gray, resize_h=720, en_scale=1.08, top_bottom_padding_rate=0.05):
+def detect_plate_rough(image_gray, resize_h=720, en_scale=1.08, top_bottom_padding_rate=0.05):
     if top_bottom_padding_rate > 0.2:
         print("error:top_bottom_padding_rate > 0.2:", top_bottom_padding_rate)
         exit(1)

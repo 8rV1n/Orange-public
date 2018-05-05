@@ -11,7 +11,7 @@ from keras.preprocessing import image
 from matplotlib import pyplot
 
 from python.com.arvinsichuan.orange.preprocess.DataPreprocessLite import DataPreProcess as DPP
-from python.opencv.plate_localization import detectPlateRough
+from python.opencv.plate_localization import detect_plate_rough
 
 
 class Prediction(object):
@@ -38,7 +38,7 @@ class Prediction(object):
         print("==========Loading Model END===========")
 
     def detect_one(self, img):
-        temp = detectPlateRough(img.astype(np.uint8))
+        temp = detect_plate_rough(img.astype(np.uint8))
         if len(temp) == 0:
             return None
         results = []

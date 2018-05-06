@@ -17,7 +17,8 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, UploadFile} from 'ng-zorro-antd';
+import {LogLevel, LogService} from '../../base-services/log.service';
 
 @Component({
   selector: 'app-detect-plate',
@@ -25,7 +26,14 @@ import {NzMessageService} from 'ng-zorro-antd';
   styleUrls: ['./contents-detection.component.css']
 })
 export class ContentsDetectionComponent implements OnInit {
-  constructor(private msg: NzMessageService) {
+  plateResult: UploadFile[] = [];
+  previewImage: UploadFile;
+  previewImageUrl = '';
+  previewVisible = false;
+  private msgId = null;
+
+
+  constructor(private msgService: NzMessageService) {
   }
 
   ngOnInit() {
@@ -34,13 +42,42 @@ export class ContentsDetectionComponent implements OnInit {
 
   handleChange({file, fileList}) {
     const status = file.status;
-    if (status !== 'uploading') {
-      console.log(file, fileList);
+    if (status === 'uploading') {
+      if (this.msgId === null) {
+        this.msgId = this.msgService.loading(`${file.name} uploading, please wait a moment.`, {nzDuration: 0}).messageId;
+      }
     }
     if (status === 'done') {
-      this.msg.success(`${file.name} file uploaded successfully.`);
+      this.msgId = this.removeMsg(this.msgId);
+      this.msgService.success(`${file.name} upload successfully.`);
+      const result = file.response;
+      LogService.logDev(LogLevel.INFO, result);
+      this.plateResult.push(file);
     } else if (status === 'error') {
-      this.msg.error(`${file.name} file upload failed.`);
+      this.msgId = this.removeMsg(this.msgId);
+      this.msgService.error(`${file.name} upload failed.`);
     }
   }
+
+  handlePreview = (file: UploadFile) => {
+    for (const img of this.plateResult) {
+      if (img.uid === file.uid) {
+        LogService.logDev(LogLevel.INFO, img);
+        this.previewImage = img;
+        this.previewImageUrl = img.url || img.thumbUrl;
+        this.previewVisible = true;
+      }
+    }
+  }
+
+
+  private removeMsg(id) {
+    if (id !== null) {
+      this.msgService.remove(id);
+      return null;
+    }
+    return id;
+  }
+
+
 }

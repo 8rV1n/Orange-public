@@ -9,7 +9,6 @@ from multiprocessing.managers import BaseManager
 import numpy as np
 from keras.models import model_from_json
 from keras.preprocessing import image
-from matplotlib import pyplot
 
 from python.com.arvinsichuan.orange.preprocess.DataPreprocessLite import DataPreProcess as DPP
 from python.opencv.plate_localization import detect_plate_rough
@@ -61,8 +60,3 @@ class Predictor(object):
             return "".join(self.__processor__.int_to_string(ints_label))
 
 
-class KerasManager(BaseManager):
-    pass
-
-
-KerasManager.register('Predictor', Predictor)

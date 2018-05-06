@@ -5,15 +5,16 @@ from keras.preprocessing import image
 
 from python.com.arvinsichuan.orange.generalapi.WebSwitchAPI import WebSwitchAPI
 # APP config
-from python.com.arvinsichuan.orange.prediction.PredictionService import KerasManager
+from python.com.arvinsichuan.orange.prediction.PredictionService import Predictor
 
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = ('jpg', 'jpeg')
 
-manager = KerasManager()
-manager.start()
-predictor = manager.Predictor()
-predictor.initialize()
+
+def init_predictor():
+    global predictor
+    predictor = Predictor()
+    predictor.initialize()
 
 
 def allowed_file(filename):
@@ -44,6 +45,9 @@ def detection():
     return jsonify(web_entity.get_entity())
 
 
+init_predictor()
+
 if __name__ == '__main__':
+    init_predictor()
     app.debug = False
     app.run()

@@ -25,11 +25,13 @@ import com.arvinsichuan.generalapi.defaultimpl.WebInfoEntityImpl;
 import com.arvinsichuan.security.entity.User;
 import com.arvinsichuan.security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
-import java.io.Serializable;
 
 /**
  * Project theWhiteSail
@@ -39,6 +41,7 @@ import java.io.Serializable;
  * Date: 2017/9/28
  * <p>
  * Package: com.arvinsichuan.users.controller
+ *
  * @author Arvin
  */
 @RestController
@@ -47,12 +50,11 @@ import java.io.Serializable;
 public class UserController {
 
     @Resource(name = "userService")
-    private
-    UserService userService;
+    private UserService userService;
 
     @PostMapping(path = "/signUp")
-    public Serializable signUp(@RequestBody User user) {
-        WebInfoEntity webInfoEntity=new WebInfoEntityImpl<>();
+    public WebInfoEntity signUp(@RequestBody User user) {
+        WebInfoEntity webInfoEntity = new WebInfoEntityImpl<>();
         try {
             webInfoEntity = userService.userSignUp(user.getUsername(), user.getPassword());
         } catch (DuplicatedDataException | ConstraintViolationException e) {

@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +48,7 @@ import java.util.Map;
 public class LogStatusController {
 
     @PostMapping(path = "/status")
-    public Serializable getLoginStatus() {
+    public WebInfoEntity<Map<String, String>> getLoginStatus() {
         return assembleAuthInfo();
     }
 

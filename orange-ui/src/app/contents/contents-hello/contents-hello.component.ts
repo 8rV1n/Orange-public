@@ -21,7 +21,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
-import {LogLevel, LogService} from '../../base-services/log.service';
 
 @Component({
   selector: 'app-contents-hello',
@@ -43,7 +42,14 @@ export class ContentsHelloComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkAuth();
+  }
 
+  private checkAuth() {
+    const authenticated = AuthenticationService.checkAuth();
+    if (authenticated) {
+      this.router.navigate(['detection']);
+    }
   }
 
   private _createFrom() {
@@ -60,17 +66,15 @@ export class ContentsHelloComponent implements OnInit {
         this.logInForm.controls[i].markAsDirty();
       }
       const msgId = this.msgService.loading('Please wait a moment.', {nzDuration: 0}).messageId;
-      this.authService.login(this.prepareUser()).subscribe(switchApi => {
+      this.authService.doLogIn(this.prepareUser(), (status) => {
         this.msgService.remove(msgId);
-        LogService.logDev(LogLevel.INFO, switchApi);
-        if (switchApi) {
-          if (Number(switchApi.code) === 0) {
-            this.msgService.success('Login Success, please login.', {nzDuration: 3000});
-            this.router.navigate(['detection']);
-          }
+        if (status) {
+          this.msgService.success('Login Success.', {nzDuration: 3000});
+          this.router.navigate(['detection']);
+        } else {
+          this.msgService.warning('Login Failed, please check your username and password', {nzDuration: 3000});
         }
       });
-
     }
   }
 

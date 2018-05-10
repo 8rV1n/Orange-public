@@ -37,7 +37,15 @@ const ENDPOINT_REGISTER = 'users/signUp';
 export class AuthenticationService extends WebApiService {
 
 
-  private _user: User;
+  private static _user: User;
+
+  public static checkAuth(): boolean {
+    let status = false;
+    if (AuthenticationService._user != null) {
+      status = true;
+    }
+    return status;
+  }
 
   constructor(private http: HttpClient) {
     super();
@@ -72,12 +80,38 @@ export class AuthenticationService extends WebApiService {
     return null;
   }
 
-  public validateAuthStatus(user: User): Observable<WebSwitchApi<User>> {
-    return null;
+
+  public doLogInWithNameAndPwd(username, password) {
+    let status = false;
+    const user = new User(username, password, true);
+    this.login(user).subscribe(switchApi => {
+      LogService.logDev(LogLevel.INFO, switchApi);
+      if (switchApi) {
+        if (Number(switchApi.code) === 0) {
+          user.password = '[PROTECTED]';
+          AuthenticationService._user = user;
+          status = true;
+        }
+      }
+    });
   }
 
+  public doLogIn(user: User, callback) {
+    let status = false;
+    this.login(user).subscribe(switchApi => {
+      LogService.logDev(LogLevel.INFO, switchApi);
+      if (switchApi) {
+        if (Number(switchApi.code) === 0) {
+          user.password = '[PROTECTED]';
+          AuthenticationService._user = user;
+          status = true;
+          callback(status);
+        }
+      }
+    });
+  }
 
   public get user(): User {
-    return this._user;
+    return AuthenticationService._user;
   }
 }

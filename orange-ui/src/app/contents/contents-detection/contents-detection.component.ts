@@ -19,6 +19,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NzMessageService, UploadFile} from 'ng-zorro-antd';
 import {LogLevel, LogService} from '../../base-services/log.service';
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../../authentication/authentication.service";
 
 @Component({
   selector: 'app-detect-plate',
@@ -33,10 +35,20 @@ export class ContentsDetectionComponent implements OnInit {
   private msgId = null;
 
 
-  constructor(private msgService: NzMessageService) {
+  constructor(private msgService: NzMessageService,
+              private authService: AuthenticationService,
+              private router: Router) {
   }
 
   ngOnInit() {
+    this.checkAuth();
+  }
+
+  private checkAuth() {
+    const authenticated = AuthenticationService.checkAuth();
+    if (!authenticated) {
+      this.router.navigate(['']);
+    }
   }
 
 

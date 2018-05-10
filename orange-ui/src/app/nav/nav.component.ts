@@ -35,7 +35,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     // Validate user when open a page
-    this.authService.validateAuthStatus(this.authService.user);
+    AuthenticationService.checkAuth();
   }
 
 }

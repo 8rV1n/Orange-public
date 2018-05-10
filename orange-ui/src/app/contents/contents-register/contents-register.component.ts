@@ -53,7 +53,15 @@ export class ContentsRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkAuth();
+  }
 
+
+  private checkAuth() {
+    const authenticated = AuthenticationService.checkAuth();
+    if (authenticated) {
+      this.router.navigate(['detection']);
+    }
   }
 
   private _createFrom() {

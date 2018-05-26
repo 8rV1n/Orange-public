@@ -25,6 +25,8 @@ import {WebSwitchApi} from '../web-switch-api/web-switch-api';
 import {LogLevel, LogService} from '../base-services/log.service';
 import {catchError} from 'rxjs/operators';
 import {BasicInfoService} from '../footer/services/basic-info.service';
+import {CookieService} from 'ngx-cookie';
+import {Router} from '@angular/router';
 
 
 const ENDPOINT = 'auth/';
@@ -47,7 +49,9 @@ export class AuthenticationService extends WebApiService {
     return status;
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private cookiesSevice: CookieService,
+              private router: Router) {
     super();
   }
 
@@ -76,8 +80,25 @@ export class AuthenticationService extends WebApiService {
     return observable;
   }
 
-  public logout(user: User): Observable<WebSwitchApi<User>> {
-    return null;
+  private logout(user: User): Observable<WebSwitchApi<{}>> {
+    const url = AuthenticationService.API_URL + ENDPOINT_LOGOUT;
+    LogService.logDev(LogLevel.INFO, 'Logout...');
+    LogService.logDev(LogLevel.INFO, ENDPOINT_LOGIN);
+    const observable: Observable<WebSwitchApi<{}>> = this.http.post<WebSwitchApi<{}>>(url, null).pipe(
+      catchError(this.handleError<WebSwitchApi<{}>>('logout'))
+    );
+    LogService.logDev(LogLevel.INFO, 'Logout End');
+    return observable;
+  }
+
+  public doLogout() {
+    this.logout(this.user).subscribe(switchApi => {
+      if (switchApi) {
+        AuthenticationService._user = null;
+        this.cookiesSevice.removeAll();
+        this.router.navigate(['']);
+      }
+    });
   }
 
 
@@ -107,6 +128,8 @@ export class AuthenticationService extends WebApiService {
           status = true;
           callback(status);
         }
+      } else {
+        callback(null);
       }
     });
   }

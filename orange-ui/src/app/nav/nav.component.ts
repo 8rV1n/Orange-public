@@ -28,6 +28,7 @@ export class NavComponent implements OnInit {
 
   @Input()
   isCollapsed;
+
   // private _user = this.authService.user;
 
   constructor(private authService: AuthenticationService) {
@@ -38,4 +39,7 @@ export class NavComponent implements OnInit {
     AuthenticationService.checkAuth();
   }
 
+  public logout() {
+    this.authService.doLogout();
+  }
 }

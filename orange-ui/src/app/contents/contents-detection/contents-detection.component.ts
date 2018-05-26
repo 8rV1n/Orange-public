@@ -33,6 +33,7 @@ export class ContentsDetectionComponent implements OnInit {
   previewImageUrl = '';
   previewVisible = false;
   private msgId = null;
+  concurrentLimit = 0;
 
 
   constructor(private msgService: NzMessageService,

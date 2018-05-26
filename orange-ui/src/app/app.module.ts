@@ -31,6 +31,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {SidebarModule} from './sidebar/sidebar.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AuthenticationModule} from './authentication/authentication.module';
+import {CookieModule} from 'ngx-cookie';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {AuthenticationModule} from './authentication/authentication.module';
     FooterModule,
     FontAwesomeModule,
     AuthenticationModule.forRoot(),
+    CookieModule.forRoot()
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

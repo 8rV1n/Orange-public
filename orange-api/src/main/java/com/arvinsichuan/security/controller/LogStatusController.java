@@ -24,12 +24,17 @@ import com.arvinsichuan.generalapi.defaultimpl.WebInfoEntityImpl;
 import com.arvinsichuan.security.utils.SecurityInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.arvinsichuan.generalapi.WebInfoEntity.*;
 
 /**
  * Project theWhiteSail
@@ -47,9 +52,18 @@ import java.util.Map;
 @Slf4j
 public class LogStatusController {
 
-    @PostMapping(path = "/status")
-    public WebInfoEntity<Map<String, String>> getLoginStatus() {
-        return assembleAuthInfo();
+    @RequestMapping(path = "/status", method = {RequestMethod.POST, RequestMethod.GET})
+    public WebInfoEntity<Map<String, String>> getLoginStatus(HttpServletRequest request, HttpServletResponse response) {
+        WebInfoEntity<Map<String, String>> info = assembleAuthInfo();
+        if ((Integer) info.getOrDefault(Keys.CODE_KEY.getKeyName(), -1) != 0) {
+            Arrays.stream(request.getCookies()).forEach(cookie -> {
+                cookie.setValue(null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            });
+        }
+        return info;
     }
 
     @GetMapping(path = "/login")

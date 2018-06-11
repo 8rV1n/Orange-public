@@ -29,3 +29,7 @@ hs_err_pid*
 
 # compile files
 **/target/**
+
+# model and weights files
+/orange-prediction/model-weights-2018-04-23-13-44-15.h5
+/orange-prediction/model_ite19-0.json

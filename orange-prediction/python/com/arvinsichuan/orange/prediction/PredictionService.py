@@ -26,9 +26,9 @@ class Predictor(object):
     def initialize(self):
         print("==========Loading Model===========")
         if not self.__json_model:
-            self.__json_model = os.path.join("D:", "model_ite19-0.json")
+            self.__json_model = os.path.join(".", "model_ite19-0.json")
         if not self.__weights:
-            self.__weights = os.path.join("D:", "model-weights-2018-04-23-13-44-15.h5")
+            self.__weights = os.path.join(".", "model-weights-2018-04-23-13-44-15.h5")
 
         with open(self.__json_model, 'r') as f:
             self.__json_model = f.read()

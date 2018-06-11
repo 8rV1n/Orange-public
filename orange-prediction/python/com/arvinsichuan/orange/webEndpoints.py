@@ -9,8 +9,8 @@ from python.com.arvinsichuan.orange.prediction.PredictionService import Predicto
 
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = ('jpg', 'jpeg')
-MODEL_FILE = os.path.join("D:", "model_ite19-0.json")
-MODEL_WEIGHTS = os.path.join("D:", "model-weights-2018-04-23-13-44-15.h5")
+MODEL_FILE = os.path.join(".", "model_ite19-0.json")
+MODEL_WEIGHTS = os.path.join(".", "model-weights-2018-04-23-13-44-15.h5")
 
 
 def init_predictor():

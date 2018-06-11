@@ -1,6 +1,8 @@
+import os
+
 import cv2
 
-watch_cascade = cv2.CascadeClassifier('C:/Users/75744/git/Orange-public/orange-prediction/python/opencv/cascade.xml')
+watch_cascade = cv2.CascadeClassifier(os.path.join(os.path.split(os.path.realpath(__file__))[0], 'cascade.xml'))
 
 
 def compute_safe_region(shape, bounding_rect):

@@ -1,4 +1,4 @@
-import time
+import time, os
 
 from flask import request, Flask, jsonify
 from keras.preprocessing import image
@@ -9,11 +9,13 @@ from python.com.arvinsichuan.orange.prediction.PredictionService import Predicto
 
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = ('jpg', 'jpeg')
+MODEL_FILE = os.path.join("D:", "model_ite19-0.json")
+MODEL_WEIGHTS = os.path.join("D:", "model-weights-2018-04-23-13-44-15.h5")
 
 
 def init_predictor():
     global predictor
-    predictor = Predictor()
+    predictor = Predictor(json_model=MODEL_FILE, weights=MODEL_WEIGHTS)
     predictor.initialize()
 
 
